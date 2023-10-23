@@ -1,0 +1,6 @@
+@NET8_WebApp_HostAddress = http://localhost:5113
+
+GET {{NET8_WebApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

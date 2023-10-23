@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Security.Cryptography.X509Certificates;
+﻿using System.Collections.Frozen;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace NET8;
@@ -71,5 +71,21 @@ internal class Program
                 foreach (var item in validationResult) { Console.WriteLine(item.ErrorMessage); }
             }
         }
+
+        // ==================== Performance-focused types ====================
+        var myDictionary = new Dictionary<string, string>
+        {
+            { "key1", "value1" },
+            { "key2", "value2" },
+            { "key3", "value3" },
+            { "key4", "value4" },
+            { "key5", "value5" }
+        };
+
+        var myFrozenDictionary = myDictionary.ToFrozenDictionary();
+        var myFrozenSet = myDictionary.ToFrozenSet();
+
+        Console.WriteLine(myFrozenDictionary.Count);
+        Console.WriteLine(myFrozenSet.Count);
     }
 }
