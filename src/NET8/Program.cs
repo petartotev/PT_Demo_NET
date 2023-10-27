@@ -1,5 +1,7 @@
 ﻿using System.Collections.Frozen;
 using System.ComponentModel.DataAnnotations;
+using System.IO.Compression;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace NET8;
@@ -8,7 +10,7 @@ internal class Program
 {
     static void Main()
     {
-        // ==================== Methods for working with randomness ====================
+        #region Methods for working with randomness
         // https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-8#methods-for-working-with-randomness
 
         // --------------- GetItems<T>() ---------------
@@ -35,7 +37,34 @@ internal class Program
 
         Console.WriteLine(new string('-', 10));
 
-        // ==================== Data validation ====================
+        #endregion
+
+        #region Performance-focused types
+        // https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-8#performance-focused-types
+
+        var myDictionary = new Dictionary<string, string>
+        {
+            { "key1", "value1" },
+            { "key2", "value2" },
+            { "key3", "value3" },
+            { "key4", "value4" },
+            { "key5", "value5" }
+        };
+
+        // "Frozen-" types don't allow any changes to keys and values once a collection created.
+        // That requirement allows faster read operations (for example, TryGetValue()).
+        // These types useful for collections populated on first use and then persisted for the duration of a long-lived service.
+
+        var myFrozenDictionary = myDictionary.ToFrozenDictionary();
+        var myFrozenSet = myDictionary.ToFrozenSet();
+
+        Console.WriteLine(myFrozenDictionary.Count);
+        Console.WriteLine(myFrozenSet.Count);
+
+        #endregion
+
+        #region Data validation
+
         var validDataValidationObject = new DataValidationObject
         {
             RangedInt = 10,
@@ -72,20 +101,32 @@ internal class Program
             }
         }
 
-        // ==================== Performance-focused types ====================
-        var myDictionary = new Dictionary<string, string>
+        #endregion
+
+        #region Cryptography
+
+        var stringToHash = "data to hash";
+        var dataToHash = Encoding.UTF8.GetBytes(stringToHash);
+
+        if (SHA3_256.IsSupported)
         {
-            { "key1", "value1" },
-            { "key2", "value2" },
-            { "key3", "value3" },
-            { "key4", "value4" },
-            { "key5", "value5" }
-        };
+            byte[] hash = SHA3_256.HashData(dataToHash);
 
-        var myFrozenDictionary = myDictionary.ToFrozenDictionary();
-        var myFrozenSet = myDictionary.ToFrozenSet();
+            Console.WriteLine(hash.Length);
+        }
+        else
+        {
+            Console.WriteLine("SHA3_256 is not supported!");
+        }
 
-        Console.WriteLine(myFrozenDictionary.Count);
-        Console.WriteLine(myFrozenSet.Count);
+        #endregion
+
+        #region Stream-based ZipFile methods
+
+        // https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-8#stream-based-zipfile-methods
+
+        ZipFile.CreateFromDirectory(".", "C://Users/petar/test.zip");
+
+        #endregion
     }
 }
