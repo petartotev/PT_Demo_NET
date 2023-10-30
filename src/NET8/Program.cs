@@ -125,7 +125,33 @@ internal class Program
 
         // https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-8#stream-based-zipfile-methods
 
-        ZipFile.CreateFromDirectory(".", "C://Users/petar/test.zip");
+        ZipFile.CreateFromDirectory(".", "C://Users/petar/test1.zip");
+
+        #endregion
+
+        #region Test
+
+        var myExample = new Example();
+
+        /*
+         var methodResult = typeof(Example)
+            .GetMethod("Method", BindingFlags.Instance | BindingFlags.NonPublic)!
+            .Invoke(myExample, ArrayEmpty<object>());
+         */
+
+        var methodResult = Caller.GetExampleMethod(myExample);
+
+        Console.WriteLine(methodResult);
+
+        var fieldResult = Caller.GetExampleField(myExample);
+
+        Console.WriteLine(fieldResult);
+
+        Caller.GetExampleField(myExample) = "field value changed from outside";
+
+        var fieldResultChanged = Caller.GetExampleField(myExample);
+
+        Console.WriteLine(fieldResultChanged);
 
         #endregion
     }
