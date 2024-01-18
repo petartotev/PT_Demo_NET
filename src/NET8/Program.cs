@@ -6,6 +6,7 @@ using System.Text;
 
 namespace NET8;
 
+// .NET8 uses C#12
 internal class Program
 {
     static void Main()

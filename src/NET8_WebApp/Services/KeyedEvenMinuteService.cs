@@ -1,12 +1,11 @@
 ﻿using NET8_WebApp.Services.Interfaces;
 
-namespace NET8_WebApp.Services
+namespace NET8_WebApp.Services;
+
+public class KeyedEvenMinuteService : IKeyedMinuteService
 {
-    public class KeyedEvenMinuteService : IKeyedMinuteService
+    public string Execute()
     {
-        public string Execute()
-        {
-            return "Minute is even!";
-        }
+        return "Minute is even!";
     }
 }

@@ -1,7 +1,6 @@
-﻿namespace NET8_WebApp.Services.Interfaces
+﻿namespace NET8_WebApp.Services.Interfaces;
+
+public interface IKeyedMinuteService
 {
-    public interface IKeyedMinuteService
-    {
-        string Execute();
-    }
+    string Execute();
 }
