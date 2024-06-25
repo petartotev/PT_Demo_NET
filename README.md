@@ -36,3 +36,5 @@ You can read more about C# language versioning [here](https://learn.microsoft.co
 
 ## Links
 - https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version
+- https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-9/overview
+- https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-13
